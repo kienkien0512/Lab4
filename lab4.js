@@ -48,25 +48,18 @@ function delay(ms) {
 function fetchMultipleData(urls){
     return Promise.all(urls.map(url => fetch(url).then(res => res.json())));
 }
-fetchMultipleData(["https://jsonplaceholder.typicode.com/users/1", "https://jsonplaceholder.typicode.com/users/2"]).then((users) =>
-  console.log(users)
-);
+// fetchMultipleData(["https://jsonplaceholder.typicode.com/users/1", "https://jsonplaceholder.typicode.com/users/2"]).then((users) =>
+//   console.log(users)
+// );
 
 async function processOrder(orderId) {
   try {
-    const order = await getOrderAsync(orderId);
-    const user = await getUserAsync(order.userId);
-    const products = await getProductsAsync(order.productIds);
-
-    return { order, user, products };
-  } catch (error) {
-    console.error("Lỗi khi xử lý đơn hàng:", error);
-  }
-}
-
-// processOrder(1001).then((result) => {
-//   console.log("Kết quả cuối cùng:", result);
-// });
+    const orderResponse = await fetch(`https://jsonplaceholder.typicode.com/users/${orderId}`);
+    const orderData = await orderResponse.json(); } catch (error) {
+    console.error("Error fetching order:", error);
+    throw error;
+  }}
+  console.log(processOrder(1));
 
 async function safeApiCall(apiFunc, ...args) {
     try {
